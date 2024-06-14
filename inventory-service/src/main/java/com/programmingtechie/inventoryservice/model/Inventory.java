@@ -8,7 +8,7 @@ import lombok.Setter;
 import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table(name = "Inventory_details")
 @Getter
 @Setter
 @AllArgsConstructor

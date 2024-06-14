@@ -3,6 +3,7 @@ package com.programmingtechie.orderservice.service;
 import com.programmingtechie.orderservice.dto.InventoryResponse;
 import com.programmingtechie.orderservice.dto.OrderLineItemsDto;
 import com.programmingtechie.orderservice.dto.OrderRequest;
+import com.programmingtechie.productservice.dto.ProductResponse;
 import com.programmingtechie.orderservice.event.OrderPlacedEvent;
 import com.programmingtechie.orderservice.model.Order;
 import com.programmingtechie.orderservice.model.OrderLineItems;
@@ -19,6 +20,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +53,7 @@ public class OrderService {
         Observation inventoryServiceObservation = Observation.createNotStarted("inventory-service-lookup",
                 this.observationRegistry);
         inventoryServiceObservation.lowCardinalityKeyValue("call", "inventory-service");
+
         return inventoryServiceObservation.observe(() -> {
             InventoryResponse[] inventoryResponseArray = webClientBuilder.build().get()
                     .uri("http://inventory-service/api/inventory",
@@ -73,6 +76,7 @@ public class OrderService {
         });
 
     }
+
 
     private OrderLineItems mapToDto(OrderLineItemsDto orderLineItemsDto) {
         OrderLineItems orderLineItems = new OrderLineItems();

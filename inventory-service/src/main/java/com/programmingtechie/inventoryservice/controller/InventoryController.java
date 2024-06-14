@@ -26,5 +26,7 @@ public class InventoryController {
         log.info("Received inventory check request for skuCode: {}", skuCode);
         return inventoryService.isInStock(skuCode);
     }
+
+
 }
 
